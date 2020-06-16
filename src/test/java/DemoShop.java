@@ -42,7 +42,7 @@ public class DemoShop {
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("adminpassw");
         driver.findElement(By.name("login")).click();
-        Assert.assertTrue( "Expected Error message is displayed",driver.findElement(By.className("woocommerce-error")).isDisplayed());
+        Assert.assertTrue( "Expected Error message is displayed",driver.findElement(By.xpath("//strong[text()='ERROR']")).isDisplayed());
     }
 
     @After
