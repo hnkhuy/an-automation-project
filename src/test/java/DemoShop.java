@@ -18,13 +18,13 @@ public class DemoShop {
     private WebDriver driver;
     private String driverName;
 
-    public DemoShop(String name){
-        driverName=name;
+    public DemoShop(String name) {
+        driverName = name;
     }
 
     @Before
     public void startBrowser() {
-        if(driverName.equals("chrome")) {
+        if (driverName.equals("chrome")) {
             System.out.println("driverName1 = " + driverName);
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
@@ -42,7 +42,7 @@ public class DemoShop {
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("adminpassw");
         driver.findElement(By.name("login")).click();
-        Assert.assertTrue( "Expected Error message is displayed",driver.findElement(By.xpath("//strong[text()='ERROR']")).isDisplayed());
+        Assert.assertTrue("Expected Error message is displayed", driver.findElement(By.xpath("//strong[text()='ERROR']")).isDisplayed());
     }
 
     @After
@@ -54,11 +54,14 @@ public class DemoShop {
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
-        String browsers=System.getProperty("browsers");
-        String[] browerArray= browsers.split(",");
+        String browsers = System.getProperty("browsers");
+        if (browsers == null) {
+            browsers = "chrome,firefox";
+        }
+        String[] browerArray = browsers.split(",");
         Object[][] browser2DArray = new String[browerArray.length][1];
         for (int i = 0; i < browerArray.length; i++) {
-            browser2DArray[i][0]=browerArray[i];
+            browser2DArray[i][0] = browerArray[i];
         }
         return Arrays.asList(browser2DArray);
     }
